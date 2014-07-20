@@ -10,7 +10,6 @@ get '/hello' do
   uri = request.original_url
   params = env['rack.request.query_hash']
   signature = env['HTTP_X_TWILIO_SIGNATURE']
-  return
   return unless validator.validate uri, params, signature
   Twilio::TwiML::Response.new do |r|
     r.Gather :finishOnKey => '#', :action => '/hello/fizzbuzz', :method => 'get' do |g|
