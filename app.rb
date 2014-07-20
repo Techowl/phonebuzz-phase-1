@@ -1,6 +1,29 @@
 require 'rubygems'
 require 'twilio-ruby'
 require 'sinatra'
+# require 'dotenv'  # uncomment this line to run locally
+
+# Dotenv.load   # uncomment this line to run locally
+
+helpers do
+  def request_valid?
+    validator = Twilio::Util::RequestValidator.new(ENV['AUTH_TOKEN'])
+    uri = request.url
+    params = {} # We're using a GET request, so this needs to be empty.
+    signature = env['HTTP_X_TWILIO_SIGNATURE']
+    return validator.validate uri, params, signature
+  end
+
+  def invalid_call
+    redirect '/invalid'
+  end
+end
+
+['/hello', '/hello/*'].each do |path|
+  before path do
+    invalid_call unless request_valid?
+  end
+end
 
 get '/hello' do
   Twilio::TwiML::Response.new do |r|
@@ -26,5 +49,11 @@ get '/hello/fizzbuzz' do
         r.Say "#{curr_num}"
       end
     end
+  end.text
+end
+
+get '/invalid' do
+  Twilio::TwiML::Response.new do |r|
+    r.Say 'Invalid request.'
   end.text
 end
