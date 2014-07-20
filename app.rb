@@ -9,7 +9,7 @@ Dotenv.load
 get '/hello' do
   validator = Twilio::Util::RequestValidator.new(@auth_token)
   uri = request.url
-  params = env['rack.request.query_hash']
+  params = env['rack.request.form_hash']
   signature = env['HTTP_X_TWILIO_SIGNATURE']
   return unless validator.validate uri, params, signature
   Twilio::TwiML::Response.new do |r|
@@ -21,8 +21,8 @@ end
 
 get '/hello/fizzbuzz' do
   validator = Twilio::Util::RequestValidator.new(@auth_token)
-  uri = request.original_url
-  params = env['rack.request.query_hash']
+  uri = request.url
+  params = env['rack.request.form_hash']
   signature = env['HTTP_X_TWILIO_SIGNATURE']
   return unless validator.validate uri, params, signature
   number = params['Digits'].to_i
