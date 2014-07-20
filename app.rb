@@ -4,9 +4,10 @@ require 'sinatra'
 require 'dotenv'
 
 Dotenv.load
+@auth_token = ENV['AUTH_TOKEN']
 
 get '/hello' do
-  validator = Twilio::Util::RequestValidator.new(ENV['AUTH_TOKEN'])
+  validator = Twilio::Util::RequestValidator.new(@auth_token)
   uri = request.original_url
   params = env['rack.request.query_hash']
   signature = env['HTTP_X_TWILIO_SIGNATURE']
@@ -19,7 +20,7 @@ get '/hello' do
 end
 
 get '/hello/fizzbuzz' do
-  validator = Twilio::Util::RequestValidator.new(ENV['AUTH_TOKEN'])
+  validator = Twilio::Util::RequestValidator.new(@auth_token)
   uri = request.original_url
   params = env['rack.request.query_hash']
   signature = env['HTTP_X_TWILIO_SIGNATURE']
