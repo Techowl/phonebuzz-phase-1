@@ -25,3 +25,5 @@ Now you're ready to download any dependencies you don't have and run the program
 bundle
 ruby app.rb
 ```
+
+You can find my Phase 2 repository at https://github.com/Techowl/phonebuzz-phase-2.
