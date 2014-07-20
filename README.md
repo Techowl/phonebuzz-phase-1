@@ -11,7 +11,6 @@ If you would like to run the app locally, you can do so as long as you have ruby
 However, you will first need to set up a .env file that contains your Twilio auth token. So:
 ```
 touch .env
-
 ```
 Open the .env file, and give it a single line of text, like so:
 ```

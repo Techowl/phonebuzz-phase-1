@@ -8,7 +8,7 @@ Dotenv.load
 
 get '/hello' do
   validator = Twilio::Util::RequestValidator.new(@auth_token)
-  uri = request.original_url
+  uri = request.url
   params = env['rack.request.query_hash']
   signature = env['HTTP_X_TWILIO_SIGNATURE']
   return unless validator.validate uri, params, signature
