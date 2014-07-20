@@ -15,8 +15,16 @@ get '/hello/fizzbuzz' do
   redirect '/hello' unless (number >= 1 && number <= 999)
   Twilio::TwiML::Response.new do |r|
     number.times do |i|
-      r.Say "#{i + 1}"
+      curr_num = i + 1
+      if curr_num % 15 == 0
+        r.Say "fizz buzz"
+      elsif curr_num % 5 == 0
+        r.Say "buzz"
+      elsif curr_num % 3 == 0
+        r.Say "fizz"
+      else
+        r.Say "#{curr_num}"
+      end
     end
-    # r.Say "Congratulations, you've reached the FizzBuzz stage with number #{number}!"
   end.text
 end
