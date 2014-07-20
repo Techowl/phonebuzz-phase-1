@@ -4,15 +4,15 @@ require 'sinatra'
 require 'dotenv'
 
 Dotenv.load
-# @auth_token = ENV['AUTH_TOKEN']
 
 helpers do
   def request_valid?
-    validator = Twilio::Util::RequestValidator.new('6bdde7ab6f34c29023ddec9620078b8a')
-    uri = request.url
-    params = env['rack.request.query_hash']
-    signature = env['HTTP_X_TWILIO_SIGNATURE']
-    return validator.validate uri, params, signature
+    # validator = Twilio::Util::RequestValidator.new(ENV['AUTH_TOKEN'])
+    # uri = request.url
+    # params = env['rack.request.query_hash']
+    # signature = env['HTTP_X_TWILIO_SIGNATURE']
+    # return validator.validate uri, params, signature
+    return ENV['AUTH_TOKEN'][0..2] == '6bd'
   end
 end
 
