@@ -11,8 +11,8 @@ get '/hello' do
 end
 
 get '/hello/fizzbuzz' do
-  number = params['Digits']
-  redirect '/hello' unless (number.is_a?(Fixnum) && number >= 1 && number <= 999)
+  number = params['Digits'].to_i
+  redirect '/hello' unless (number >= 1 && number <= 999)
   Twilio::TwiML::Response.new do |r|
     r.Say "Congratulations, you've reached the FizzBuzz stage with number #{number}!"
   end.text
